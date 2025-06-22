@@ -1,54 +1,48 @@
-# React + TypeScript + Vite
+# Project Rummage Cleaner
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Development Commands
 
-Currently, two official plugins are available:
+- **Start development server**: `npm run dev`
+- **Build project**: `npm run build` (includes TypeScript compilation)
+- **Run linter**: `npm run lint`
+- **Preview build**: `npm run preview`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Architecture
 
-## Expanding the ESLint configuration
+This is a React + TypeScript + Vite text cleaning application that removes or replaces unwanted Unicode characters from text input. These Unicode characters are typically used by AI tools to differentiate content created by such tools.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Core Structure
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Main App** (`src/App.tsx`): Central state management with React hooks, controls two processing modes (clean/replace), real-time vs manual processing
+- **Text Processing Engine** (`src/utils/textCleaner.ts`): Core logic with two modes:
+  - `clean`: Removes all problematic characters
+  - `replace`: Replaces smart quotes, dashes, ellipsis with ASCII equivalents, then removes invisible/control characters
+- **Character Definitions** (`src/constants/characters.ts`): Unicode character mappings including invisible chars, replaceable chars, control characters, and replacement rules
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Component Architecture
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**Panel-based UI layout**:
+- `TextInputPanel` / `TextOutputPanel`: Input/output text areas with character counts
+- `ControlPanel`: Mode toggles, processing controls, view options
+- `ComparisonPanel`: Side-by-side diff view (toggleable)
+- `StatisticsPanel`: Character frequency breakdown (toggleable)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+**Reusable UI components** (`src/components/ui/`): Button, Card, TextArea with Tailwind styling
+
+### Key Features
+
+- **Two Processing Modes**: 
+  - Clean mode: Removes all unwanted characters
+  - Replace mode: Smart character replacement + removal
+- **Real-time Processing**: Automatic cleaning as user types (toggleable)
+- **Statistics**: Detailed breakdown of characters found/processed
+- **Comparison View**: Visual diff between input and output
+- **Clipboard Integration**: Copy/replace functionality via custom hook
+
+### Technology Stack
+
+- React 19 with TypeScript
+- Vite build system
+- Tailwind CSS 4.x for styling
+- Lucide React for icons
+- ESLint for code quality
