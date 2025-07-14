@@ -10,7 +10,19 @@ export const INVISIBLE_CHARS: Record<string, string> = {
   'Right-to-Left Embedding': '\u202B',
   'Pop Directional Formatting': '\u202C',
   'Left-to-Right Override': '\u202D',
-  'Right-to-Left Override': '\u202E'
+  'Right-to-Left Override': '\u202E',
+  'Zero Width No-Break Space': '\uFEFF',
+  'Word Joiner': '\u2060',
+  'Invisible Separator': '\u2063',
+  'Invisible Plus': '\u2064',
+  'Left-to-Right Isolate': '\u2066',
+  'Right-to-Left Isolate': '\u2067',
+  'First Strong Isolate': '\u2068',
+  'Pop Directional Isolate': '\u2069',
+  'Function Application': '\u2061',
+  'Invisible Times': '\u2062',
+  'Mongolian Vowel Separator': '\u180E',
+  'Arabic Letter Mark': '\u061C'
 };
 
 export const REPLACEABLE_CHARS: Record<string, string> = {
